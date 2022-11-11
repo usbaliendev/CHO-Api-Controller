@@ -3,6 +3,8 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System;
+using System.Data.SqlClient;
 
 namespace CHO
 {
@@ -22,7 +24,6 @@ namespace CHO
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 using (HttpResponseMessage res = await client.GetAsync(baseURL + cepnum + "/json/"))
-                // using (HttpResponseMessage res = await client.GetAsync(baseURL))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -36,5 +37,6 @@ namespace CHO
             }
             return string.Empty;
         }
+
     }
 }
