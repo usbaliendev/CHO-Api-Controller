@@ -48,7 +48,7 @@ namespace CHO
 
                 int contador = i+1;
 
-                SqlConnection con = new SqlConnection("");
+                SqlConnection con = new SqlConnection("Data Source= DESKTOP-DUDU-ROG6KEL;Initial Catalog= CEP;Integrated Security=True");
                 string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf ) VALUES (@id, @nomeUsuario, @cep, @dataModf)";
 
                 try
