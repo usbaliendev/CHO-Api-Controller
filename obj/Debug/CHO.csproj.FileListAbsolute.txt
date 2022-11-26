@@ -11,3 +11,17 @@ E:\Documents\Code\C#\CHO\obj\Debug\CHO.csproj.CoreCompileInputs.cache
 E:\Documents\Code\C#\CHO\obj\Debug\CHO.csproj.CopyComplete
 E:\Documents\Code\C#\CHO\obj\Debug\CHO.exe
 E:\Documents\Code\C#\CHO\obj\Debug\CHO.pdb
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\bin\Debug\CHO.exe.config
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\bin\Debug\CHO.exe
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\bin\Debug\CHO.pdb
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\bin\Debug\Newtonsoft.Json.dll
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\bin\Debug\Newtonsoft.Json.xml
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.csproj.AssemblyReference.cache
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.csproj.SuggestedBindingRedirects.cache
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.RestAPIsCHO.resources
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.Properties.Resources.resources
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.csproj.GenerateResource.cache
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.csproj.CoreCompileInputs.cache
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.csproj.CopyComplete
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.exe
+C:\Users\eders\Desenvolvimento\CHO-Api-Controller\obj\Debug\CHO.pdb

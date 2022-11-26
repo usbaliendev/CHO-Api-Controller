@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace CHO
 {
@@ -35,7 +36,7 @@ namespace CHO
         }
         private async void btnGetCEP_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i > 0; i++) {
+
                 var resp = await CorreiosRestAPI.GetCEP(inptCEP.Text);
                 rTBJson.Text = CorreiosRestAPI.BeautifyJson(resp);
                 var stats = await GetStatus(inptCEP.Text);
@@ -46,31 +47,56 @@ namespace CHO
                 DateTime date = DateTime.Today;
                 string dataHora = date.ToString("G");
 
-                int contador = i+1;
-
                 SqlConnection con = new SqlConnection("Data Source= DESKTOP-DUDU-ROG6KEL;Initial Catalog= CEP;Integrated Security=True");
-                string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf ) VALUES (@id, @nomeUsuario, @cep, @dataModf)";
+                string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback ) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
+
+                
+               
 
                 try
                 {
+                for (int i = 0; i > 0; i++)
+                {
+                    int contador = 1;
+                    contador++;
+
                     SqlCommand com = new SqlCommand(sql, con);
                     com.Parameters.Add(new SqlParameter("@id", contador));
                     com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
                     com.Parameters.Add(new SqlParameter("@cep", this.inptCEP.Text));
                     com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
+                    com.Parameters.Add(new SqlParameter("@feedback", stats));
 
                     con.Open();
                     com.ExecuteNonQuery();
                     con.Close();
 
-                    MessageBox.Show("Valores atribuídos à tabela.");
+                    Timer timer = new Timer();
+                    timer.Tick += delegate
+                    {
+                        timer.Interval = 5000;
+                        MessageBox.Show("Valores atribuídos à tabela.");
+                    };
 
-                } catch (SqlException ex)
-                {
-                    MessageBox.Show("Ocorreu um erro: " + ex);
+                    timer.Start();
                 }
+                }
+
+                catch (SqlException ex)
+                {
+
+                Timer timererr = new Timer();
+                timererr.Tick += delegate
+                {
+                    timererr.Interval = 5000;
+                    MessageBox.Show("Ocorreu um erro: " + ex);
+                };
+
+                timererr.Start();
+
+
+            }
                 finally { con.Close(); }
-        }
         }
     }
 }
