@@ -34,6 +34,19 @@ namespace CHO
             }
             return string.Empty;
         }
+
+        private static void MensagemConfirmacao(string msg)
+        {
+            MessageBox.Show = msg;
+            Timer timer = new Timer();
+            timer.interval = 5000;
+            timer.Tick += delegate {
+                this.DialogResult = DialogResult.Yes;
+
+            }
+            timer.Start();
+        }
+
         private async void btnGetCEP_Click(object sender, EventArgs e)
         {
 
@@ -71,29 +84,14 @@ namespace CHO
                     com.ExecuteNonQuery();
                     con.Close();
 
-                    Timer timer = new Timer();
-                    timer.Tick += delegate
-                    {
-                        timer.Interval = 5000;
-                        MessageBox.Show("Valores atribuídos à tabela.");
-                    };
-
-                    timer.Start();
+                    MensagemConfirmacao("Valores atribuídos à tabela.");
                 }
                 }
 
                 catch (SqlException ex)
                 {
 
-                Timer timererr = new Timer();
-                timererr.Tick += delegate
-                {
-                    timererr.Interval = 5000;
-                    MessageBox.Show("Ocorreu um erro: " + ex);
-                };
-
-                timererr.Start();
-
+                MensagemConfirmacao("Ocorreu um erro" + ex);
 
             }
                 finally { con.Close(); }
