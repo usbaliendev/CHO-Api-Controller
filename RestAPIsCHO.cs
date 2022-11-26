@@ -60,7 +60,7 @@ namespace CHO
                 DateTime date = DateTime.Today;
                 string dataHora = date.ToString("G");
 
-                SqlConnection con = new SqlConnection("Data Source= DESKTOP-DUDU-ROG6KEL;Initial Catalog= CEP;Integrated Security=True");
+                SqlConnection con = new SqlConnection("Data Source= DESKTOP-DUDU-RO;Initial Catalog= CEP;Integrated Security=True");
                 string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback ) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
 
                 
