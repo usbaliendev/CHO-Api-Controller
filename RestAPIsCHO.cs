@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
+using System.Net.Configuration;
 
 namespace CHO
 {
@@ -35,17 +37,23 @@ namespace CHO
             return string.Empty;
         }
 
-        private static void MensagemConfirmacao(string msg)
+        private void MensagemConfirmacao()
         {
-            MessageBox.Show = msg;
             Timer timer = new Timer();
-            timer.interval = 5000;
-            timer.Tick += delegate {
-                this.DialogResult = DialogResult.Yes;
-
-            }
+            timer.Interval = 5000;
+            MessageBox.Show("Valores atribuídos à tabela.");
             timer.Start();
+            
         }
+        private void MensagemErro()
+        {
+            Timer timer = new Timer();
+            timer.Interval = 5000;
+            MessageBox.Show("Ocorreu um erro.");
+            timer.Start();
+
+        }
+
 
         private async void btnGetCEP_Click(object sender, EventArgs e)
         {
@@ -63,18 +71,14 @@ namespace CHO
                 SqlConnection con = new SqlConnection("Data Source= DESKTOP-DUDU-RO;Initial Catalog= CEP;Integrated Security=True");
                 string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback ) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
 
-                
-               
 
-                try
+            try
                 {
                 for (int i = 0; i > 0; i++)
                 {
-                    int contador = 1;
-                    contador++;
 
                     SqlCommand com = new SqlCommand(sql, con);
-                    com.Parameters.Add(new SqlParameter("@id", contador));
+                    com.Parameters.Add(new SqlParameter("@id", i));
                     com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
                     com.Parameters.Add(new SqlParameter("@cep", this.inptCEP.Text));
                     com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
@@ -84,17 +88,18 @@ namespace CHO
                     com.ExecuteNonQuery();
                     con.Close();
 
-                    MensagemConfirmacao("Valores atribuídos à tabela.");
+                    MensagemConfirmacao();
                 }
                 }
 
-                catch (SqlException ex)
+            catch (SqlException ex)
                 {
 
-                MensagemConfirmacao("Ocorreu um erro" + ex);
+                MensagemErro();
+                MessageBox.Show(ex.Message);
 
             }
-                finally { con.Close(); }
+            finally { con.Close(); }
         }
     }
 }
