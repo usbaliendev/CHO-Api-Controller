@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CHO
 {
@@ -136,19 +137,22 @@ namespace CHO
             var stats = await GetStatusCEP(inptCEP.Text);
             rTBStatusCode.Text = stats;
 
+            string tipoServ = "CEP";
             string username = Dns.GetHostEntry(Environment.MachineName).HostName;
 
-            DateTime date = DateTime.Today;
-            string dataHora = date.ToString("G");
+            DateTime data = DateTime.Now;
+            string hora = DateTime.Now.ToShortTimeString();
+            string dataHora = data+hora;
 
             SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
-            string sql = "INSERT INTO dados(nomeUsuario, cep, dataModf, feedback) VALUES (@nomeUsuario, @cep, @dataModf, @feedback)";
+            string sql = "INSERT INTO dados(nomeUsuario, cep, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @cep, @tipo_serv, @dataModf, @feedback)";
 
             try
             {
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
                 com.Parameters.Add(new SqlParameter("@cep", this.inptCEP.Text));
+                com.Parameters.Add(new SqlParameter("@tipo_serv", tipoServ));
                 com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
                 com.Parameters.Add(new SqlParameter("@feedback", stats));
 
@@ -176,12 +180,31 @@ namespace CHO
             var stats = await GetStatusGEO(txtBLat1.Text, txtBLong1.Text);
             rTBGeoStats.Text = stats;
 
-            //SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
-            //string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
+            string tipoServ = "GEO";
+            string username = Dns.GetHostEntry(Environment.MachineName).HostName;
+
+            DateTime data = DateTime.Now;
+            string hora = DateTime.Now.ToShortTimeString();
+            string dataHora = data + hora;
+
+            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            string sql = "INSERT INTO dados(nomeUsuario, latitude, longitude, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @latitude, @longitude, @tipo_serv, @dataModf, @feedback)";
 
             try
             {
-                MessageBox.Show("Valores ainda serao atribuídos à tabela.");
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
+                com.Parameters.Add(new SqlParameter("@latitude", this.txtBLat1.Text));
+                com.Parameters.Add(new SqlParameter("@longitude", this.txtBLong1.Text));
+                com.Parameters.Add(new SqlParameter("@tipo_serv", tipoServ));
+                com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
+                com.Parameters.Add(new SqlParameter("@feedback", stats));
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+
+                MessageBox.Show("Valores atribuídos à tabela.");
             }
             catch (SqlException ex)
             {
@@ -189,7 +212,7 @@ namespace CHO
             }
             finally
             {
-                //con.Close();
+                con.Close();
             }
         }
 
@@ -200,12 +223,30 @@ namespace CHO
             var stats = await GetStatusGEOEnd(txtBGeoEndereco.Text);
             rTBGeoStats.Text = stats;
 
-            //SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
-            //string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
+            string tipoServ = "GEOE";
+            string username = Dns.GetHostEntry(Environment.MachineName).HostName;
+
+            DateTime data = DateTime.Now;
+            string hora = DateTime.Now.ToShortTimeString();
+            string dataHora = data + hora;
+
+            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            string sql = "INSERT INTO dados(nomeUsuario, endereco, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @endereco, @tipo_serv, @dataModf, @feedback)";
 
             try
             {
-                MessageBox.Show("Valores ainda serao atribuídos à tabela.");
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
+                com.Parameters.Add(new SqlParameter("@endereco", this.txtBGeoEndereco.Text));
+                com.Parameters.Add(new SqlParameter("@tipo_serv", tipoServ));
+                com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
+                com.Parameters.Add(new SqlParameter("@feedback", stats));
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+
+                MessageBox.Show("Valores atribuídos à tabela.");
             }
             catch (SqlException ex)
             {
@@ -213,7 +254,7 @@ namespace CHO
             }
             finally
             {
-                //con.Close();
+                con.Close();
             }
         }
 
@@ -224,12 +265,31 @@ namespace CHO
             var stats = await GetStatusClima(txtBLat2.Text, txtBLong2.Text);
             rTBClimaStats.Text = stats;
 
-            //SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
-            //string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
+            string tipoServ = "CLI";
+            string username = Dns.GetHostEntry(Environment.MachineName).HostName;
+
+            DateTime data = DateTime.Now;
+            string hora = DateTime.Now.ToShortTimeString();
+            string dataHora = data + hora;
+
+            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            string sql = "INSERT INTO dados(nomeUsuario, latitude, longitude, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @latitude, @longitude, @tipo_serv, @dataModf, @feedback)";
 
             try
             {
-                MessageBox.Show("Valores ainda serao atribuídos à tabela.");
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
+                com.Parameters.Add(new SqlParameter("@latitude", this.txtBLat2.Text));
+                com.Parameters.Add(new SqlParameter("@longitude", this.txtBLong2.Text));
+                com.Parameters.Add(new SqlParameter("@tipo_serv", tipoServ));
+                com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
+                com.Parameters.Add(new SqlParameter("@feedback", stats));
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+
+                MessageBox.Show("Valores atribuídos à tabela.");
             }
             catch (SqlException ex)
             {
@@ -237,7 +297,7 @@ namespace CHO
             }
             finally
             {
-                //con.Close();
+                con.Close();
             }
         }
 
@@ -248,12 +308,31 @@ namespace CHO
             var stats = await GetStatusClimaEnd(txtBClimaEndereco.Text);
             rTBClimaStats.Text = stats;
 
-            //SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
-            //string sql = "INSERT INTO dados(id, nomeUsuario, cep, dataModf, feedback) VALUES (@id, @nomeUsuario, @cep, @dataModf, @feedback)";
+            string tipoServ = "CLIE";
+            string username = Dns.GetHostEntry(Environment.MachineName).HostName;
+
+            DateTime data = DateTime.Now;
+            string hora = DateTime.Now.ToShortTimeString();
+            string dataHora = data + hora;
+
+            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            string sql = "INSERT INTO dados(nomeUsuario, endereco, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @endereco, @tipo_serv, @dataModf, @feedback)";
 
             try
             {
-                MessageBox.Show("Valores ainda serao atribuídos à tabela.");
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
+                com.Parameters.Add(new SqlParameter("@endereco", this.txtBClimaEndereco.Text));
+                com.Parameters.Add(new SqlParameter("@tipo_serv", tipoServ));
+                com.Parameters.Add(new SqlParameter("@dataModf", dataHora));
+                com.Parameters.Add(new SqlParameter("@feedback", stats));
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+
+
+                MessageBox.Show("Valores atribuídos à tabela.");
             }
             catch (SqlException ex)
             {
@@ -261,7 +340,7 @@ namespace CHO
             }
             finally
             {
-                //con.Close();
+                con.Close();
             }
         }
 
