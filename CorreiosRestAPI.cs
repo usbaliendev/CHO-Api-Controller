@@ -23,7 +23,7 @@ namespace CHO
             using (HttpClient client = new HttpClient())
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                using (HttpResponseMessage res = await client.GetAsync("https://viacep.com.br/ws/" + cepnum + "/json/"))
+                using (HttpResponseMessage res = await client.GetAsync(baseURL + cepnum + "/json/"))
                 {
                     using (HttpContent content = res.Content)
                     {
