@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -137,12 +138,14 @@ namespace CHO
             var stats = await GetStatusCEP(inptCEP.Text);
             rTBStatusCode.Text = stats;
 
-            string tipoServ = "CEP";
+            string tipoServ = "CEP Consulta";
             string username = Dns.GetHostEntry(Environment.MachineName).HostName;
 
+            //string hora = DateTime.Now.ToShortTimeString();
+            //string hora = DateTime.Now.ToString("pt-BR");
+            //string dataHora = data+hora;
             DateTime data = DateTime.Now;
-            string hora = DateTime.Now.ToShortTimeString();
-            string dataHora = data+hora;
+            string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
             SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, cep, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @cep, @tipo_serv, @dataModf, @feedback)";
@@ -180,12 +183,11 @@ namespace CHO
             var stats = await GetStatusGEO(txtBLat1.Text, txtBLong1.Text);
             rTBGeoStats.Text = stats;
 
-            string tipoServ = "GEO";
+            string tipoServ = "GEOLoc Coordenada";
             string username = Dns.GetHostEntry(Environment.MachineName).HostName;
 
             DateTime data = DateTime.Now;
-            string hora = DateTime.Now.ToShortTimeString();
-            string dataHora = data + hora;
+            string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
             SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, latitude, longitude, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @latitude, @longitude, @tipo_serv, @dataModf, @feedback)";
@@ -223,12 +225,11 @@ namespace CHO
             var stats = await GetStatusGEOEnd(txtBGeoEndereco.Text);
             rTBGeoStats.Text = stats;
 
-            string tipoServ = "GEOE";
+            string tipoServ = "GEOLoc Endereço";
             string username = Dns.GetHostEntry(Environment.MachineName).HostName;
 
             DateTime data = DateTime.Now;
-            string hora = DateTime.Now.ToShortTimeString();
-            string dataHora = data + hora;
+            string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
             SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, endereco, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @endereco, @tipo_serv, @dataModf, @feedback)";
@@ -265,12 +266,11 @@ namespace CHO
             var stats = await GetStatusClima(txtBLat2.Text, txtBLong2.Text);
             rTBClimaStats.Text = stats;
 
-            string tipoServ = "CLI";
+            string tipoServ = "CLIMA Coordenada";
             string username = Dns.GetHostEntry(Environment.MachineName).HostName;
 
             DateTime data = DateTime.Now;
-            string hora = DateTime.Now.ToShortTimeString();
-            string dataHora = data + hora;
+            string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
             SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, latitude, longitude, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @latitude, @longitude, @tipo_serv, @dataModf, @feedback)";
@@ -308,12 +308,11 @@ namespace CHO
             var stats = await GetStatusClimaEnd(txtBClimaEndereco.Text);
             rTBClimaStats.Text = stats;
 
-            string tipoServ = "CLIE";
+            string tipoServ = "CLIMA Endereço";
             string username = Dns.GetHostEntry(Environment.MachineName).HostName;
 
             DateTime data = DateTime.Now;
-            string hora = DateTime.Now.ToShortTimeString();
-            string dataHora = data + hora;
+            string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
             SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, endereco, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @endereco, @tipo_serv, @dataModf, @feedback)";
