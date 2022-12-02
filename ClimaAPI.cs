@@ -10,7 +10,6 @@ namespace CHO
 {
     public static class ClimaAPI
     {
-        //private static readonly string baseURL = "https://api.openweathermap.org/data/3.0/onecall?";
         private static readonly string baseURL = "https://api.openweathermap.org/data/2.5/weather?";
 
         public static string BeautifyJson(string jsonStr)
@@ -19,13 +18,15 @@ namespace CHO
             return parseJson.ToString(Formatting.Indented);
         }
 
+        private static readonly string apiclimakey = System.Configuration.ConfigurationManager.AppSettings["apiclimakey"];
+
         public static async Task<string> GetClima(string latt, string longt)
         {
             using (HttpClient client = new HttpClient())
             {
                 //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                using (HttpResponseMessage res = await client.GetAsync(baseURL + "lat=" + latt + "&lon=" + longt + "&exclude=hourly,daily&lang=pt_br&appid=386c4fd2b0685a37ff131405fe7d5d39"))
-                //using (HttpResponseMessage res = await client.GetAsync(baseURL + "lat=" + latt + "&lon=" + longt + "&lang=pt_br&appid=386c4fd2b0685a37ff131405fe7d5d39"))
+                
+                using (HttpResponseMessage res = await client.GetAsync(baseURL + "lat=" + latt + "&lon=" + longt + $"&exclude=hourly,daily&lang=pt_br&appid={apiclimakey}"))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -49,7 +50,7 @@ namespace CHO
                 //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 //string enderecopercent = endereco.Replace(' ', '%');
                 //using (HttpResponseMessage res = await client.GetAsync(baseUrlEnd + "q=" + endereco + "London,uk&appid=386c4fd2b0685a37ff131405fe7d5d39"))
-                using (HttpResponseMessage res = await client.GetAsync(baseURL + "q=" + endereco + "London,uk&appid=386c4fd2b0685a37ff131405fe7d5d39"))
+                using (HttpResponseMessage res = await client.GetAsync(baseURL + "q=" + endereco + $"London,uk&appid={apiclimakey}"))
                 {
                     using (HttpContent content = res.Content)
                     {

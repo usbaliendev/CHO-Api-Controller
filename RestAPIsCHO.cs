@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Net;
@@ -24,6 +25,9 @@ namespace CHO
         private static readonly string baseURLCEP = "https://viacep.com.br/ws/";
         private static readonly string baseURLGeo = "https://geocode.xyz/";
         private static readonly string baseURLClima = "https://api.openweathermap.org/data/2.5/weather?";
+
+        string nomebanco = ConfigurationManager.AppSettings["nomebanco"];
+        string datasource = ConfigurationManager.AppSettings["datasource"];
 
         public static async Task<string> GetStatusCEP(string cepnum)
         {
@@ -147,7 +151,9 @@ namespace CHO
             DateTime data = DateTime.Now;
             string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
-            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+
+
+            SqlConnection con = new SqlConnection($"Data Source={datasource};Initial Catalog={nomebanco};Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, cep, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @cep, @tipo_serv, @dataModf, @feedback)";
 
             try
@@ -189,11 +195,11 @@ namespace CHO
             DateTime data = DateTime.Now;
             string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
-            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            SqlConnection con = new SqlConnection($"Data Source={datasource};Initial Catalog={nomebanco};Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, latitude, longitude, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @latitude, @longitude, @tipo_serv, @dataModf, @feedback)";
 
             try
-            {
+             {
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.Add(new SqlParameter("@nomeUsuario", username));
                 com.Parameters.Add(new SqlParameter("@latitude", this.txtBLat1.Text));
@@ -231,7 +237,7 @@ namespace CHO
             DateTime data = DateTime.Now;
             string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
-            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            SqlConnection con = new SqlConnection($"Data Source={datasource};Initial Catalog={nomebanco};Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, endereco, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @endereco, @tipo_serv, @dataModf, @feedback)";
 
             try
@@ -272,7 +278,7 @@ namespace CHO
             DateTime data = DateTime.Now;
             string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
-            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            SqlConnection con = new SqlConnection($"Data Source={datasource};Initial Catalog={nomebanco};Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, latitude, longitude, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @latitude, @longitude, @tipo_serv, @dataModf, @feedback)";
 
             try
@@ -314,7 +320,7 @@ namespace CHO
             DateTime data = DateTime.Now;
             string dataHora = data.ToString("G", CultureInfo.GetCultureInfo("pt-BR"));
 
-            SqlConnection con = new SqlConnection("Data Source=KAYDEN7-PC;Initial Catalog=CEP;Integrated Security=True");
+            SqlConnection con = new SqlConnection($"Data Source={datasource};Initial Catalog={nomebanco};Integrated Security=True");
             string sql = "INSERT INTO dados(nomeUsuario, endereco, tipo_serv, dataModf, feedback) VALUES (@nomeUsuario, @endereco, @tipo_serv, @dataModf, @feedback)";
 
             try

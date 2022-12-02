@@ -8,9 +8,11 @@ using System.Data.SqlClient;
 
 namespace CHO
 {
+    
     public static class GeoLocAPI
     {
         private static readonly string baseURL = "https://geocode.xyz/";
+        private static readonly string apigeolocpkey = System.Configuration.ConfigurationManager.AppSettings["apigeolocpkey"];
 
         public static string BeautifyJson(string jsonStr)
         {
@@ -18,15 +20,13 @@ namespace CHO
             return parseJson.ToString(Formatting.Indented);
         }
 
+        
+
         public static async Task<string> GetGeoLoc(string latt, string longt)
         {
             using (HttpClient client = new HttpClient())
             {
-                //decimal tempLat = decimal.Parse(latt);
-                //decimal tempLong = decimal.Parse(longt);
-                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                //using (HttpResponseMessage res = await client.GetAsync(baseURL + tempLat + "," + tempLong + "geoit=JSONp&auth=797165037426226490234x100731"))
-                using (HttpResponseMessage res = await client.GetAsync(baseURL + latt + "," + longt + "?geoit=json&auth=797165037426226490234x100731"))
+                using (HttpResponseMessage res = await client.GetAsync(baseURL + latt + "," + longt + $"?geoit=json&auth={apigeolocpkey}"))
                 {
                     using (HttpContent content = res.Content)
                     {
